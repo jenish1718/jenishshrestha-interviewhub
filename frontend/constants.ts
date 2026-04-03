@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Feature, Step, Testimonial } from "./types";
 
+// Feature cards for the landing page.
 export const FEATURES: Feature[] = [
   {
     id: "skill-extraction",
@@ -57,6 +58,7 @@ export const FEATURES: Feature[] = [
   }
 ];
 
+// Steps in the interview preparation workflow.
 export const STEPS: Step[] = [
   {
     id: 1,
@@ -84,6 +86,7 @@ export const STEPS: Step[] = [
   }
 ];
 
+// User testimonials displayed on the landing page.
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t1",

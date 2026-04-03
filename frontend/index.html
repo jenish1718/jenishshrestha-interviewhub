@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>InterviewHub - AI Interview Prep</title>
+    <!-- Tailwind CSS and font configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
+      // Tailwind theme extensions.
       tailwind.config = {
         theme: {
           extend: {
@@ -52,12 +54,13 @@
       }
     </script>
     <style>
+      /* Global page styling. */
       body {
         background-color: #000000;
-        color: #f4f4f5; /* zinc-100 */
+        color: #f4f4f5;
         overflow-x: hidden;
       }
-      /* Custom Scrollbar */
+      /* Custom scrollbar for dark UI. */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -65,20 +68,22 @@
         background: #000000;
       }
       ::-webkit-scrollbar-thumb {
-        background: #27272a; /* zinc-800 */
+        background: #27272a;
         border: 1px solid #000000;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #3f3f46; /* zinc-700 */
+        background: #3f3f46;
       }
       
+      /* Glass panel effect used across components. */
       .glass {
         background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
       }
     </style>
-  <script type="importmap">
+    <!-- Import map for browser modules -->
+    <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.1",
@@ -90,10 +95,10 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
-</head>
+    <link rel="stylesheet" href="/index.css">
+  </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>
