@@ -1,0 +1,12 @@
+# Railway configuration for InterviewHub monorepo
+# Docs: https://docs.railway.app/reference/config-as-code
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "backend/InterviewHub.API/Dockerfile"
+# Build context is the backend project folder so COPY in Dockerfile is relative
+buildContextPath = "backend/InterviewHub.API"
+
+[deploy]
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3

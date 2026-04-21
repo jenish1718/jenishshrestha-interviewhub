@@ -73,16 +73,28 @@ builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>()
 
 // CORS - Allow React frontend from different origins
 // localhost for normal dev, network IP for VS Code browser opening
+// In production set the FRONTEND_URL environment variable in Railway dashboard
+var frontendUrl = builder.Configuration["FrontendUrl"]
+    ?? Environment.GetEnvironmentVariable("FRONTEND_URL")
+    ?? "";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:5173", 
-                "http://localhost:3000", 
-                "http://localhost:3001",
-                "http://172.23.48.1:3000"  // VS Code opens browser with network IP
-            )
+        var allowedOrigins = new List<string>
+        {
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "http://172.23.48.1:3000"
+        };
+
+        // Add production frontend URL if configured
+        if (!string.IsNullOrWhiteSpace(frontendUrl))
+            allowedOrigins.Add(frontendUrl.TrimEnd('/'));
+
+        policy.WithOrigins(allowedOrigins.ToArray())
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -154,15 +166,13 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline
 
-// Enable Swagger in development
-if (app.Environment.IsDevelopment())
+// Enable Swagger in all environments (useful for Railway production testing)
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "InterviewHub API v1");
-    });
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "InterviewHub API v1");
+    options.RoutePrefix = "swagger";
+});
 
 // Rate limiting middleware
 app.UseIpRateLimiting();
@@ -177,17 +187,19 @@ app.UseAuthorization();
 // Map controllers
 app.MapControllers();
 
-// Auto-migrate database on startup (development only)
-if (app.Environment.IsDevelopment())
+// Auto-migrate database and seed on startup (runs in all environments)
+// In production (Railway) this ensures the DB schema is always up to date
 {
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var startupLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     try
     {
-        // Database schema will be created if it doesn't exist
+        startupLogger.LogInformation("Applying database migrations...");
         dbContext.Database.Migrate();
+        startupLogger.LogInformation("Database migrations applied successfully.");
 
-        // Seed admin user if not present (or fix password hash)
+        // Seed admin user if not present
         var adminEmail = "admin@interviewhub.com";
         var adminUser = dbContext.Users.FirstOrDefault(u => u.Email == adminEmail);
         if (adminUser == null)
@@ -204,13 +216,13 @@ if (app.Environment.IsDevelopment())
             };
             dbContext.Users.Add(adminUser);
             dbContext.SaveChanges();
+            startupLogger.LogInformation("Admin user seeded.");
         }
         else
         {
-            // Always ensure admin has correct role and a valid password hash
+            // Ensure admin has correct role and active status
             adminUser.Role = InterviewHub.API.Models.UserRole.Admin;
             adminUser.IsActive = true;
-            adminUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123", workFactor: 12);
             dbContext.SaveChanges();
         }
 
@@ -219,13 +231,17 @@ if (app.Environment.IsDevelopment())
         {
             dbContext.SystemSettings.AddRange(InterviewHub.API.Services.Admin.SettingsService.GetDefaultSettings());
             dbContext.SaveChanges();
+            startupLogger.LogInformation("Default system settings seeded.");
         }
     }
     catch (Exception ex)
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while creating the database.");
+        logger.LogError(ex, "An error occurred during database migration/seeding.");
+        // Don't crash the app — it may still work if DB is already up to date
     }
 }
 
-app.Run();
+// Bind to Railway's injected PORT (falls back to 8080 locally)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
