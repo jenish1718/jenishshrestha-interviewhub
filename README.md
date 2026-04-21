@@ -1,20 +1,22 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# InterviewHub
 
-# Run and deploy your AI Studio app
+InterviewHub is an AI-powered interview preparation platform. It allows users to simulate mock interviews and receive real-time scoring, confidence metrics, and feedback using AI. It features speech recognition, video analysis, and detailed post-interview reporting.
 
-This contains everything you need to run your app locally.
+## Project Structure
 
-View your app in AI Studio: https://ai.studio/apps/drive/1in39MYpu_uf2vnfscvO5AzlzspLS0qft
+- **backend/**: ASP.NET Core Web API serving as the application backbone, integrating with generative AI (Gemini), managing data persistence via Entity Framework, and handling authentication/authorization.
+- **frontend/**: React + Vite web application containing Candidate and Admin dashboards, real-time interview interfaces, and detailed analytics.
+- **scripts/**: Utility scripts (e.g., helpers for password hashing).
 
-## Run Locally
+## Running Locally
 
-**Prerequisites:**  Node.js
+### Backend
+1. Navigate to `backend/InterviewHub.API/`
+2. Update the connection string in `appsettings.Development.json` if needed.
+3. Apply database migrations: `dotnet ef database update`
+4. Run the API: `dotnet run`
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Frontend
+1. Navigate to `frontend/`
+2. Install dependencies: `npm install`
+3. Start the dev server: `npm run dev`
