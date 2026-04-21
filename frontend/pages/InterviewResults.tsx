@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -23,7 +23,7 @@ import {
 import { SessionSummary, SessionAnswer, SessionQuestion } from '../types';
 import { formatDuration, getWPMAssessment, getFillerAssessment } from '../hooks';
 
-const API_BASE = 'http://localhost:5052/api';
+const API_BASE = 'https://jenishshrestha-interviewhub-production.up.railway.app/api';
 
 interface SessionData {
     sessionId: number;

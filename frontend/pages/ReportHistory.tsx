@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -15,7 +15,7 @@ import {
     Download,
 } from 'lucide-react';
 
-const API_BASE = 'http://localhost:5052/api';
+const API_BASE = 'https://jenishshrestha-interviewhub-production.up.railway.app/api';
 
 interface ReportHistoryItem {
     reportId: number;
@@ -292,7 +292,7 @@ const ReportHistory: React.FC = () => {
                                                 {report.companyName && (
                                                     <span>{report.companyName}</span>
                                                 )}
-                                                <span>•</span>
+                                                <span>â€¢</span>
                                                 <span>{new Date(report.generatedAt).toLocaleDateString()}</span>
                                             </div>
                                         </div>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, ArrowRight, Loader2, Shield, User } from "lucide-react";
 import Button from "../components/Button";
 
-const API_URL = "http://localhost:5052/api";
+const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api";
 
 type LoginRole = "candidate" | "admin";
 
@@ -277,12 +277,12 @@ const SignIn = () => {
                     setError("");
                   }}
                   className={`block w-full pl-10 pr-3 py-3 border border-zinc-800 bg-black/50 text-white placeholder-zinc-600 rounded-lg focus:outline-none focus:ring-1 ${ringClass} sm:text-sm transition-all`}
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 />
               </div>
             </motion.div>
 
-            {/* Remember me & Forgot password — only for candidates */}
+            {/* Remember me & Forgot password â€” only for candidates */}
             {!isAdmin && (
               <motion.div
                 variants={itemVariants}
@@ -347,7 +347,7 @@ const SignIn = () => {
             </motion.div>
           </form>
 
-          {/* Register link — only for candidates */}
+          {/* Register link â€” only for candidates */}
           {!isAdmin && (
             <motion.div
               variants={itemVariants}

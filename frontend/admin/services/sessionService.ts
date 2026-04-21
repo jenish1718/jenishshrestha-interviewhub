@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5052/api/admin/sessions";
+﻿const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api/admin/sessions";
 
 const authHeaders = (): Record<string, string> => ({
     "Content-Type": "application/json",

@@ -1,4 +1,4 @@
-// useInterviewSession.ts - Interview Session State Manager
+﻿// useInterviewSession.ts - Interview Session State Manager
 // This hook manages the entire interview session lifecycle:
 // - startSession: Creates a new interview session in the backend
 // - submitAnswer: Saves the user's answer with metrics to the database
@@ -9,7 +9,7 @@
 import { useState, useCallback } from 'react';
 import { InterviewSession, SessionQuestion, SubmitAnswerRequest } from '../types';
 
-const API_BASE = 'http://localhost:5052/api';
+const API_BASE = 'https://jenishshrestha-interviewhub-production.up.railway.app/api';
 
 interface UseInterviewSessionReturn {
     session: InterviewSession | null;

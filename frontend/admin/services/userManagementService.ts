@@ -1,7 +1,7 @@
-// userManagementService.ts - API calls for admin user management
+﻿// userManagementService.ts - API calls for admin user management
 // Handles user listing, details, status updates, deletion, and statistics.
 
-const API_URL = "http://localhost:5052/api/admin/users";
+const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api/admin/users";
 
 const authHeaders = (): Record<string, string> => ({
     "Content-Type": "application/json",

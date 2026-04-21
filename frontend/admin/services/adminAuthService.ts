@@ -1,7 +1,7 @@
-// adminAuthService.ts - API calls for admin authentication
+﻿// adminAuthService.ts - API calls for admin authentication
 // Handles login, logout, token validation, password change, and profile retrieval.
 
-const API_URL = "http://localhost:5052/api/admin/auth";
+const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api/admin/auth";
 
 // Get stored admin token
 const getToken = (): string | null => localStorage.getItem("adminToken");
@@ -12,7 +12,7 @@ const authHeaders = (): Record<string, string> => ({
     Authorization: `Bearer ${getToken()}`,
 });
 
-// Admin login — sends credentials and stores token on success
+// Admin login â€” sends credentials and stores token on success
 export const adminLogin = async (email: string, password: string) => {
     const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -64,7 +64,7 @@ export const changeAdminPassword = async (currentPassword: string, newPassword: 
     return await response.json();
 };
 
-// Admin logout — clears all admin storage
+// Admin logout â€” clears all admin storage
 export const adminLogout = () => {
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminRefreshToken");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -46,7 +46,7 @@ import {
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const API_BASE = 'http://localhost:5052/api';
+const API_BASE = 'https://jenishshrestha-interviewhub-production.up.railway.app/api';
 
 interface ReportData {
     reportId: number;
@@ -258,7 +258,7 @@ const InterviewReport: React.FC = () => {
                 pdf.setFontSize(10);
                 pdf.setTextColor(0, 0, 0);
                 report.strengths.forEach(strength => {
-                    pdf.text(`✓ ${strength}`, margin + 5, y);
+                    pdf.text(`âœ“ ${strength}`, margin + 5, y);
                     y += 6;
                 });
                 y += 5;
@@ -276,7 +276,7 @@ const InterviewReport: React.FC = () => {
                 pdf.setFontSize(10);
                 pdf.setTextColor(0, 0, 0);
                 report.improvements.forEach(improvement => {
-                    pdf.text(`• ${improvement}`, margin + 5, y);
+                    pdf.text(`â€¢ ${improvement}`, margin + 5, y);
                     y += 6;
                 });
             }
@@ -305,9 +305,9 @@ const InterviewReport: React.FC = () => {
                 pdf.setFontSize(10);
                 pdf.setTextColor(0, 0, 0);
                 
-                const statusText = question.answerStatus === 'Correct' ? ' ✓ Correct'
+                const statusText = question.answerStatus === 'Correct' ? ' âœ“ Correct'
                     : question.answerStatus === 'Partial' ? ' ~ Partial'
-                    : question.answerStatus === 'Incorrect' ? ' ✗ Incorrect'
+                    : question.answerStatus === 'Incorrect' ? ' âœ— Incorrect'
                     : '';
                 
                 const statusColor = question.answerStatus === 'Correct' ? [22, 163, 74]
@@ -796,10 +796,10 @@ const InterviewReport: React.FC = () => {
                                                         : question.answerStatus === 'NotAnswered' ? 'text-gray-400'
                                                         : 'text-red-400'
                                                     }`}>
-                                                        {question.answerStatus === 'Correct' && '✅ Correct Answer'}
-                                                        {question.answerStatus === 'Partial' && '⚠️ Partially Correct'}
-                                                        {question.answerStatus === 'Incorrect' && '❌ Incorrect Answer'}
-                                                        {question.answerStatus === 'NotAnswered' && '⏭️ Question Not Answered'}
+                                                        {question.answerStatus === 'Correct' && 'âœ… Correct Answer'}
+                                                        {question.answerStatus === 'Partial' && 'âš ï¸ Partially Correct'}
+                                                        {question.answerStatus === 'Incorrect' && 'âŒ Incorrect Answer'}
+                                                        {question.answerStatus === 'NotAnswered' && 'â­ï¸ Question Not Answered'}
                                                     </p>
                                                     <p className="text-gray-400 text-xs">
                                                         {question.answerStatus === 'NotAnswered' 
@@ -855,7 +855,7 @@ const InterviewReport: React.FC = () => {
                                         {/* AI Feedback */}
                                         {question.feedback && (
                                             <div className="bg-purple-900/20 rounded-lg p-3 mb-3 border border-purple-500/20">
-                                                <p className="text-purple-400 text-xs mb-2 font-medium">🤖 AI Feedback</p>
+                                                <p className="text-purple-400 text-xs mb-2 font-medium">ðŸ¤– AI Feedback</p>
                                                 <p className="text-gray-300 text-sm">{question.feedback}</p>
                                             </div>
                                         )}
@@ -865,20 +865,20 @@ const InterviewReport: React.FC = () => {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                                                 {question.strengths && question.strengths.length > 0 && (
                                                     <div className="bg-green-900/20 rounded-lg p-3 border border-green-500/20">
-                                                        <p className="text-green-400 text-xs mb-2 font-medium">✓ What You Did Well</p>
+                                                        <p className="text-green-400 text-xs mb-2 font-medium">âœ“ What You Did Well</p>
                                                         <ul className="space-y-1">
                                                             {question.strengths.map((s, i) => (
-                                                                <li key={i} className="text-gray-300 text-sm">• {s}</li>
+                                                                <li key={i} className="text-gray-300 text-sm">â€¢ {s}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
                                                 )}
                                                 {question.improvements && question.improvements.length > 0 && (
                                                     <div className="bg-yellow-900/20 rounded-lg p-3 border border-yellow-500/20">
-                                                        <p className="text-yellow-400 text-xs mb-2 font-medium">↗ Areas to Improve</p>
+                                                        <p className="text-yellow-400 text-xs mb-2 font-medium">â†— Areas to Improve</p>
                                                         <ul className="space-y-1">
                                                             {question.improvements.map((imp, i) => (
-                                                                <li key={i} className="text-gray-300 text-sm">• {imp}</li>
+                                                                <li key={i} className="text-gray-300 text-sm">â€¢ {imp}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
@@ -902,7 +902,7 @@ const InterviewReport: React.FC = () => {
                                             <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/20 rounded-lg p-4 mb-3 border border-green-500/30">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <Award className="w-4 h-4 text-green-400" />
-                                                    <p className="text-green-400 text-sm font-semibold">✨ Ideal / Expected Answer</p>
+                                                    <p className="text-green-400 text-sm font-semibold">âœ¨ Ideal / Expected Answer</p>
                                                 </div>
                                                 <p className="text-gray-200 text-sm leading-relaxed">{question.sampleAnswer}</p>
                                             </div>
@@ -910,7 +910,7 @@ const InterviewReport: React.FC = () => {
 
                                         {question.tip && (
                                             <div className="bg-blue-900/20 rounded-lg p-3 border border-blue-500/20">
-                                                <p className="text-blue-300 text-sm">💡 {question.tip}</p>
+                                                <p className="text-blue-300 text-sm">ðŸ’¡ {question.tip}</p>
                                             </div>
                                         )}
                                     </motion.div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+﻿import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Button from "../components/Button";
 
-const API_URL = "http://localhost:5052/api";
+const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api";
 
 interface JobEmail {
     emailId: number;
@@ -579,7 +579,7 @@ const Dashboard = () => {
                             onClick={() => navigate('/reports')}
                             className="text-brand-500 hover:text-brand-400 text-sm font-medium transition-colors"
                         >
-                            View All Reports →
+                            View All Reports â†’
                         </button>
                     </div>
 

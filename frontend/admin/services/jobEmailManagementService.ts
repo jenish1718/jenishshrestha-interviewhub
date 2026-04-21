@@ -1,7 +1,7 @@
-// jobEmailManagementService.ts - API calls for admin job email management
+﻿// jobEmailManagementService.ts - API calls for admin job email management
 // Handles listing, details, editing, deletion, and statistics for job emails.
 
-const API_URL = "http://localhost:5052/api/admin/job-emails";
+const API_URL = "https://jenishshrestha-interviewhub-production.up.railway.app/api/admin/job-emails";
 
 const authHeaders = (): Record<string, string> => ({
     "Content-Type": "application/json",
