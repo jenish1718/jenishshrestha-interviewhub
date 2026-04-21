@@ -446,7 +446,7 @@ const Dashboard = () => {
                 <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden">
                     <div className="p-6 border-b border-zinc-800">
                         <h2 className="text-xl font-semibold text-white">
-                            Your Job Descriptions
+                            Your Job Description
                         </h2>
                     </div>
 
