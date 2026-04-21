@@ -2,13 +2,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy project file and restore dependencies (layer-cached)
-COPY InterviewHub.API.csproj .
-RUN dotnet restore
+# Copy project file first (layer-cached restore)
+# Path is relative to repo root (Railway's build context)
+COPY backend/InterviewHub.API/InterviewHub.API.csproj backend/InterviewHub.API/
+RUN dotnet restore backend/InterviewHub.API/InterviewHub.API.csproj
 
-# Copy everything else and publish
-COPY . .
-RUN dotnet publish InterviewHub.API.csproj -c Release -o /app/publish --no-restore
+# Copy the rest of the backend source
+COPY backend/InterviewHub.API/ backend/InterviewHub.API/
+
+# Publish release build
+RUN dotnet publish backend/InterviewHub.API/InterviewHub.API.csproj \
+    -c Release -o /app/publish --no-restore
 
 # ─── Stage 2: Runtime ─────────────────────────────────────────────────────────
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
