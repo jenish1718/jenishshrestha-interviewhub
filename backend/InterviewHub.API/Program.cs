@@ -21,10 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 
-// Database Context - MySQL with Pomelo
+// Database Context - PostgreSQL with Npgsql
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -195,9 +195,11 @@ app.MapControllers();
     var startupLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     try
     {
-        startupLogger.LogInformation("Applying database migrations...");
-        dbContext.Database.Migrate();
-        startupLogger.LogInformation("Database migrations applied successfully.");
+        startupLogger.LogInformation("Creating/verifying database schema...");
+        // EnsureCreated creates all tables from the model if they don't exist.
+        // This bypasses SQL Server-specific migrations and works with any provider.
+        dbContext.Database.EnsureCreated();
+        startupLogger.LogInformation("Database schema ready.");
 
         // Seed admin user if not present
         var adminEmail = "admin@interviewhub.com";

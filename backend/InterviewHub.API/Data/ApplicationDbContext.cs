@@ -59,7 +59,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(u => u.LastName).IsRequired().HasMaxLength(50);
             
             entity.Property(u => u.Role).HasConversion<int>();
-            entity.Property(u => u.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(u => u.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(u => u.IsActive).HasDefaultValue(true);
 
             entity.HasMany(u => u.RefreshTokens)
@@ -241,7 +241,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(a => a.Details).HasMaxLength(500);
             entity.Property(a => a.TargetEntityType).HasMaxLength(100);
             entity.Property(a => a.IpAddress).HasMaxLength(50);
-            entity.Property(a => a.PerformedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(a => a.PerformedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasIndex(a => a.AdminUserId);
             entity.HasIndex(a => a.PerformedAt);
@@ -260,7 +260,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(f => f.Reason).HasMaxLength(500);
             entity.Property(f => f.Status).HasMaxLength(20).HasDefaultValue("Pending");
             entity.Property(f => f.ModeratorNotes).HasMaxLength(500);
-            entity.Property(f => f.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(f => f.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(f => f.Reporter)
                 .WithMany()
@@ -283,7 +283,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(s => s.Type).HasMaxLength(50);
             entity.Property(s => s.Description).HasMaxLength(200);
             entity.Property(s => s.Category).HasMaxLength(50);
-            entity.Property(s => s.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(s => s.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         // UserActivityLog configuration
@@ -293,7 +293,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(u => u.Action).IsRequired().HasMaxLength(100);
             entity.Property(u => u.Details).HasMaxLength(500);
             entity.Property(u => u.IpAddress).HasMaxLength(50);
-            entity.Property(u => u.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(u => u.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasIndex(u => u.UserId);
             entity.HasIndex(u => u.CreatedAt);
@@ -308,7 +308,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<UserQuestionHistory>(entity =>
         {
             entity.HasKey(h => h.Id);
-            entity.Property(h => h.AskedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(h => h.AskedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(h => h.UserAnswer).HasMaxLength(2000);
 
             entity.HasIndex(h => h.UserId);
